@@ -560,7 +560,7 @@ SWITCH
 476
 adaptive-therapy
 adaptive-therapy
-0
+1
 1
 -1000
 
@@ -952,27 +952,38 @@ NetLogo 6.3.0
 @#$#@#$#@
 @#$#@#$#@
 <experiments>
-  <experiment name="experiment" repetitions="20" runMetricsEveryStep="true">
+  <experiment name="experimentNoDrug" repetitions="100" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
-    <timeLimit steps="1000"/>
-    <exitCondition>tumor-burden &gt;= tumor-burden-threshold</exitCondition>
+    <timeLimit steps="5000"/>
     <metric>count patches with [pcolor = black]</metric>
     <metric>count patches with [pcolor = orange]</metric>
-    <steppedValueSet variable="resourceRate" first="0" step="10" last="20"/>
-    <steppedValueSet variable="resource" first="0" step="10" last="20"/>
-    <steppedValueSet variable="starvingThreshold" first="0" step="2" last="10"/>
+    <enumeratedValueSet variable="resourceRate">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="resource">
+      <value value="10"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="starvingThreshold">
+      <value value="25"/>
+    </enumeratedValueSet>
     <enumeratedValueSet variable="cell-count">
       <value value="8"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="proliferationPSensitive">
-      <value value="0.1"/>
+      <value value="0.06"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="proliferationPResistant">
       <value value="0.05"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="sensitive-to-resistive">
-      <value value="0.7"/>
+    <enumeratedValueSet variable="sensitive-to-resistant">
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="adaptive-therapy">
+      <value value="false"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="drugMolecule">
+      <value value="0"/>
     </enumeratedValueSet>
   </experiment>
 </experiments>
