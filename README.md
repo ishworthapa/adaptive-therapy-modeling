@@ -27,3 +27,6 @@ NetLogo model for adaptive therapy in cancer
 ## Stopping criteria:
 - Tumor shrinks and no cells left
 - Tumor grows to more than 90% of the available area
+
+## Interface
+![Interface](adaptiveInterface.png "Interface")
