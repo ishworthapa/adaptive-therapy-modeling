@@ -234,7 +234,7 @@ ticks
 SLIDER
 19
 62
-191
+215
 95
 resource
 resource
@@ -283,7 +283,7 @@ NIL
 SLIDER
 19
 103
-191
+215
 136
 resourceRate
 resourceRate
@@ -341,7 +341,7 @@ PENS
 SLIDER
 19
 146
-191
+215
 179
 starvingThreshold
 starvingThreshold
@@ -371,10 +371,10 @@ NIL
 1
 
 INPUTBOX
-20
-214
-191
-274
+18
+187
+215
+247
 cell-count
 8.0
 1
@@ -382,10 +382,10 @@ cell-count
 Number
 
 SLIDER
-19
-285
-214
-318
+18
+265
+213
+298
 sensitive-to-resistant
 sensitive-to-resistant
 0
@@ -397,10 +397,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-19
-326
-215
-359
+18
+306
+214
+339
 proliferationPSensitive
 proliferationPSensitive
 0
@@ -412,10 +412,10 @@ NIL
 HORIZONTAL
 
 SLIDER
-19
-372
-215
-405
+18
+352
+214
+385
 proliferationPResistant
 proliferationPResistant
 0
@@ -532,10 +532,10 @@ total-drug
 11
 
 INPUTBOX
-25
-482
-197
-542
+18
+439
+214
+499
 adaptive-burden-threshold
 1000.0
 1
@@ -543,10 +543,10 @@ adaptive-burden-threshold
 Number
 
 INPUTBOX
-24
-553
-173
-613
+18
+511
+215
+571
 drug-threshold
 3000.0
 1
@@ -554,13 +554,13 @@ drug-threshold
 Number
 
 SWITCH
-26
-443
-189
-476
+19
+395
+214
+428
 adaptive-therapy
 adaptive-therapy
-0
+1
 1
 -1000
 
@@ -952,118 +952,27 @@ NetLogo 6.3.0
 @#$#@#$#@
 @#$#@#$#@
 <experiments>
-  <experiment name="experimentNoDrug" repetitions="100" runMetricsEveryStep="false">
+  <experiment name="experiment" repetitions="20" runMetricsEveryStep="true">
     <setup>setup</setup>
     <go>go</go>
-    <timeLimit steps="5000"/>
+    <timeLimit steps="1000"/>
+    <exitCondition>tumor-burden &gt;= tumor-burden-threshold</exitCondition>
     <metric>count patches with [pcolor = black]</metric>
     <metric>count patches with [pcolor = orange]</metric>
-    <enumeratedValueSet variable="resourceRate">
-      <value value="10"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="resource">
-      <value value="10"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="starvingThreshold">
-      <value value="25"/>
-    </enumeratedValueSet>
+    <steppedValueSet variable="resourceRate" first="0" step="10" last="20"/>
+    <steppedValueSet variable="resource" first="0" step="10" last="20"/>
+    <steppedValueSet variable="starvingThreshold" first="0" step="2" last="10"/>
     <enumeratedValueSet variable="cell-count">
       <value value="8"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="proliferationPSensitive">
-      <value value="0.06"/>
+      <value value="0.1"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="proliferationPResistant">
       <value value="0.05"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="sensitive-to-resistant">
-      <value value="0.5"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="adaptive-therapy">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="drugMolecule">
-      <value value="0"/>
-    </enumeratedValueSet>
-  </experiment>
-  <experiment name="experimentMetronomicDrug" repetitions="100" runMetricsEveryStep="false">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="5000"/>
-    <metric>count patches with [pcolor = black]</metric>
-    <metric>count patches with [pcolor = orange]</metric>
-    <enumeratedValueSet variable="resourceRate">
-      <value value="10"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="resource">
-      <value value="10"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="starvingThreshold">
-      <value value="25"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="cell-count">
-      <value value="8"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="proliferationPSensitive">
-      <value value="0.06"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="proliferationPResistant">
-      <value value="0.05"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="sensitive-to-resistant">
-      <value value="0.5"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="adaptive-therapy">
-      <value value="false"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="drugMolecule">
-      <value value="100"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="rxStartTime">
-      <value value="100"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="timeInterval">
-      <value value="30"/>
-    </enumeratedValueSet>
-  </experiment>
-  <experiment name="experimentAdaptiveDrug" repetitions="100" runMetricsEveryStep="false">
-    <setup>setup</setup>
-    <go>go</go>
-    <timeLimit steps="5000"/>
-    <metric>count patches with [pcolor = black]</metric>
-    <metric>count patches with [pcolor = orange]</metric>
-    <enumeratedValueSet variable="resourceRate">
-      <value value="10"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="resource">
-      <value value="10"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="starvingThreshold">
-      <value value="25"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="cell-count">
-      <value value="8"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="proliferationPSensitive">
-      <value value="0.06"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="proliferationPResistant">
-      <value value="0.05"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="sensitive-to-resistant">
-      <value value="0.5"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="adaptive-therapy">
-      <value value="true"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="bolusAmount">
-      <value value="1000"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="adaptive-burden-threshold">
-      <value value="1000"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="drug-threshold">
-      <value value="3000"/>
+    <enumeratedValueSet variable="sensitive-to-resistive">
+      <value value="0.7"/>
     </enumeratedValueSet>
   </experiment>
 </experiments>
