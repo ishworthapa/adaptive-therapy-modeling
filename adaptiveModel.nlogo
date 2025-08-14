@@ -92,7 +92,7 @@ to go
   set tumor-burden count patches with [pcolor != white]
   set c1count count patches with [pcolor = orange]
   set c2count count patches with [pcolor = black]
-  set delta abs ( tumor-burden - adaptive-burden-threshold )
+  set delta abs tumor-burden - adaptive-burden-threshold
   if tumor-burden > tumor-burden-threshold or tumor-burden = 0 [ stop ]
 
   ; every 7th tick give bolus if tumor-burden is high
@@ -100,7 +100,7 @@ to go
   ifelse adaptive-therapy [
     set drugMolecule 0
     ; sensitive count > burden threshold
-    if c1count > adaptive-burden-threshold and ticks mod 7 = 0  and count drugts < drug-threshold [
+    if c1count > adaptive-burden-threshold and ticks mod 7 = 0  and count drugts < max-drug [
       giveDrugs bolusAmount
     ]
   ]
@@ -109,7 +109,7 @@ to go
       giveDrugs bolusAmount
     ]
     [
-      if ticks > rxStartTime and ( ticks - rxStartTime ) mod timeInterval = 0 [
+      if ticks > startTime and ( ticks - startTime ) mod timeInterval = 0 [
         giveDrugs drugMolecule
       ]
     ]
@@ -335,13 +335,13 @@ NIL
 0.0
 10.0
 true
-false
+true
 "" ""
 PENS
-"default" 1.0 0 -14070903 true "" "plot count drugts"
-"pen-1" 1.0 0 -955883 true "" "plot count patches with [pcolor = orange]"
-"pen-2" 1.0 0 -16777216 true "" "plot count patches with [pcolor = black]"
-"pen-3" 1.0 0 -13840069 true "" "plot count resourcets"
+"drugCount" 1.0 0 -14070903 true "" "plot count drugts"
+"sensitiveCount" 1.0 0 -955883 true "" "plot count patches with [pcolor = orange]"
+"resistantCount" 1.0 0 -16777216 true "" "plot count patches with [pcolor = black]"
+"resourceCount" 1.0 0 -13840069 true "" "plot count resourcets"
 
 SLIDER
 19
@@ -410,7 +410,7 @@ proliferationPSensitive
 proliferationPSensitive
 0
 0.5
-0.06
+0.05
 0.01
 1
 NIL
@@ -425,7 +425,7 @@ proliferationPResistant
 proliferationPResistant
 0
 0.5
-0.05
+0.045
 0.01
 1
 NIL
@@ -487,7 +487,7 @@ INPUTBOX
 1325
 218
 bolusAmount
-1000.0
+700.0
 1
 0
 Number
@@ -519,7 +519,7 @@ INPUTBOX
 85
 1219
 145
-rxStartTime
+startTime
 100.0
 1
 0
@@ -542,7 +542,7 @@ INPUTBOX
 214
 499
 adaptive-burden-threshold
-1000.0
+3000.0
 1
 0
 Number
@@ -552,8 +552,8 @@ INPUTBOX
 511
 215
 571
-drug-threshold
-3000.0
+max-drug
+2700.0
 1
 0
 Number
@@ -973,13 +973,13 @@ NetLogo 6.3.0
       <value value="25"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="cell-count">
-      <value value="8"/>
+      <value value="100"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="proliferationPSensitive">
-      <value value="0.06"/>
+      <value value="0.05"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="proliferationPResistant">
-      <value value="0.05"/>
+      <value value="0.045"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="sensitive-to-resistant">
       <value value="0.5"/>
@@ -1007,13 +1007,13 @@ NetLogo 6.3.0
       <value value="25"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="cell-count">
-      <value value="8"/>
+      <value value="100"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="proliferationPSensitive">
-      <value value="0.06"/>
+      <value value="0.05"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="proliferationPResistant">
-      <value value="0.05"/>
+      <value value="0.045"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="sensitive-to-resistant">
       <value value="0.5"/>
@@ -1024,7 +1024,7 @@ NetLogo 6.3.0
     <enumeratedValueSet variable="drugMolecule">
       <value value="100"/>
     </enumeratedValueSet>
-    <enumeratedValueSet variable="rxStartTime">
+    <enumeratedValueSet variable="startTime">
       <value value="100"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="timeInterval">
@@ -1047,13 +1047,13 @@ NetLogo 6.3.0
       <value value="25"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="cell-count">
-      <value value="8"/>
+      <value value="100"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="proliferationPSensitive">
-      <value value="0.06"/>
+      <value value="0.05"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="proliferationPResistant">
-      <value value="0.05"/>
+      <value value="0.045"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="sensitive-to-resistant">
       <value value="0.5"/>
@@ -1062,13 +1062,13 @@ NetLogo 6.3.0
       <value value="true"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="bolusAmount">
-      <value value="1000"/>
+      <value value="700"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="adaptive-burden-threshold">
-      <value value="1000"/>
-    </enumeratedValueSet>
-    <enumeratedValueSet variable="drug-threshold">
       <value value="3000"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-drug">
+      <value value="2700"/>
     </enumeratedValueSet>
   </experiment>
 </experiments>
