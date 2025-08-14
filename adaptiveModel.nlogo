@@ -3,7 +3,7 @@
 breed [ drugts drugt ]
 breed [ resourcets resourcet ]
 patches-own [ starved-for just-died? ]
-globals [tumor-burden tumor-burden-threshold bolusTick c1count c2count total-drug]
+globals [tumor-burden tumor-burden-threshold bolusTick c1count c2count total-drug delta]
 
 
 to setup
@@ -33,23 +33,25 @@ to setup
   ]
 
   if rcount != 0 [
-    ask n-of 1 patches with [pcolor = white and distance patch 0 0 < 1 ] [
+    ask n-of 1 patches with [pcolor = white and distance patch 0 0 < rcount / 2 ] [
       set pcolor black
       set starved-for 0
     ]
     let i 0
     while [ i < rcount - 1 ] [
       ask n-of 1 patches with [pcolor = black][
-        ask n-of 1 neighbors with [pcolor = white] [
-          set pcolor black
-          set starved-for 0
-       ]
-        set i i + 1
+        if any? neighbors with [pcolor = white] [
+          ask n-of 1 neighbors with [pcolor = white] [
+            set pcolor black
+            set starved-for 0
+          ]
+          set i i + 1
+        ]
       ]
     ]
   ]
   if scount != 0 [
-    ask n-of 1 patches with [pcolor = white and distance patch 0 0 < 2 ] [
+    ask n-of 1 patches with [pcolor = white and distance patch 0 0 < scount / 2 ] [
       set pcolor orange
       set starved-for 0
     ]
@@ -57,11 +59,13 @@ to setup
     let i 0
     while [ i < scount - 1 ] [
       ask n-of 1 patches with [pcolor = orange][
-        ask n-of 1 neighbors with [pcolor = white] [
-          set pcolor orange
-          set starved-for 0
-       ]
-        set i i + 1
+        if any? neighbors with [pcolor = white] [
+          ask n-of 1 neighbors with [pcolor = white] [
+            set pcolor orange
+            set starved-for 0
+          ]
+          set i i + 1
+        ]
       ]
     ]
   ]
@@ -88,6 +92,7 @@ to go
   set tumor-burden count patches with [pcolor != white]
   set c1count count patches with [pcolor = orange]
   set c2count count patches with [pcolor = black]
+  set delta abs ( tumor-burden - adaptive-burden-threshold )
   if tumor-burden > tumor-burden-threshold or tumor-burden = 0 [ stop ]
 
   ; every 7th tick give bolus if tumor-burden is high
@@ -376,7 +381,7 @@ INPUTBOX
 215
 247
 cell-count
-8.0
+100.0
 1
 0
 Number
@@ -560,7 +565,7 @@ SWITCH
 428
 adaptive-therapy
 adaptive-therapy
-1
+0
 1
 -1000
 
